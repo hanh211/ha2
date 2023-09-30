@@ -1,5 +1,5 @@
 [admin@fedser KivyLC]$ cat .github/workflows/build.yml
-name: Build
+name: CI
 on:
   push:
     branches-ignore:
