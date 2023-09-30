@@ -37,7 +37,7 @@ jobs:
         uses: ArtemSBulgakov/buildozer-action@v1
         id: buildozer
         with:
-          command: echo y | buildozer -v android deploy run
+          command: echo y | buildozer -v android deploy run logcat | grep python
           buildozer_version: master
 
       - name: Upload artifacts
