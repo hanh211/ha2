@@ -14,7 +14,6 @@ jobs:
       - name: Get Date
         id: get-date
         run: |
-          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
           sudo apt-get update
           # pip install buildozer
           # pip install cython==0.29.28
@@ -45,6 +44,7 @@ jobs:
           # sudo apt-get install build-essential
           # sudo apt-get install libstdc++6
           sudo apt-get install aidl
+          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
         shell: bash
 
       - name: Cache Buildozer global directory
