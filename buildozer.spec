@@ -230,9 +230,9 @@ android.permissions = android.permissions = android.permission.INTERNET, (name=a
 
 # (list) Android additional libraries to copy into libs/armeabi
 #android.add_libs_armeabi = libs/android/*.so
-#android.add_libs_armeabi_v7a = %(source_dir)s/ha9/blob/main/armeabi_v7a/libopencv_java4.so
-#android.add_libs_arm64_v8a = %(source_dir)s/ha9/blob/main/arm64-v8a/libopencv_java4.so
-#android.add_libs_x86 = %(source_dir)s/ha9/blob/main/x86/libopencv_java4.so
+#android.add_libs_armeabi_v7a = %(source_dir)s/a.so
+#android.add_libs_arm64_v8a = %(source_dir)s/b.so
+#android.add_libs_x86 = %(source_dir)s/libopencv_java4.so
 #android.add_libs_mips = libs/android-mips/*.so
 
 # (bool) Indicate whether the screen should stay on
@@ -263,7 +263,7 @@ android.permissions = android.permissions = android.permission.INTERNET, (name=a
 
 # (list) The Android archs to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
 # In past, was `android.arch` as we weren't supporting builds for multiple archs at the same time.
-android.archs = x86
+android.archs = armeabi-v7a, arm64-v8a,x86
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
@@ -289,7 +289,7 @@ android.allow_backup = True
 
 # (str) The format used to package the app for debug mode (apk or aar).
 # android.debug_artifact = apk
-android.add_libs_armeabi_v7a = %(source_dir)s/libopencv_java4.so
+#android.add_libs_armeabi_v7a = %(source_dir)s/libopencv_java4.so
 #
 # Python for android (p4a) specific
 #
