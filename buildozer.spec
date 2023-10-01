@@ -1,22 +1,22 @@
 [app]
 
 # (str) Title of your application
-title = SampleApp
+title = Write To Kivy
 
 # (str) Package name
-package.name = sampleapk
+package.name = KivyTest
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.test
+package.domain = org.YourName
 
 # (str) Source code where the main.py live
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,txt,atlas,ttf
+source.include_exts = py,png,jpg,kv,atlas
 
 # (list) List of inclusions using pattern matching
-source.include_patterns = images/*.png
+#source.include_patterns = assets/*,images/*.png
 
 # (list) Source files to exclude (let empty to not exclude anything)
 #source.exclude_exts = spec
@@ -29,7 +29,7 @@ source.include_patterns = images/*.png
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 1.0
+version = 0.404
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -37,17 +37,17 @@ version = 1.0
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy==2.2.1,kivymd==1.1.1,pillow==10.0.0.opencv-python==4.8.0.76
+requirements = python3,kivy,sdl2_ttf,pillow
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
 # requirements.source.kivy = ../../kivy
 
 # (str) Presplash of the application
-presplash.filename = %(source.dir)s/images/presplash.png
+presplash.filename = %(source.dir)s/data/presplash.png
 
 # (str) Icon of the application
-icon.filename = %(source.dir)s/images/favicon.png
+icon.filename = %(source.dir)s/data/icon.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
@@ -60,13 +60,13 @@ orientation = portrait
 #
 
 #
-# author = © Copyright Novfensec Inc.
+# author = © Copyright Info
 
 # change the major version of python used by the app
 osx.python_version = 3
 
 # Kivy version to use
-osx.kivy_version = 2.1.0
+osx.kivy_version = 1.9.1
 
 #
 # Android specific
@@ -80,21 +80,20 @@ fullscreen = 0
 # red, blue, green, black, white, gray, cyan, magenta, yellow, lightgray,
 # darkgray, grey, lightgrey, darkgrey, aqua, fuchsia, lime, maroon, navy,
 # olive, purple, silver, teal.
-android.presplash_color = black
+#android.presplash_color = #FFFFFF
 
 # (string) Presplash animation using Lottie format.
 # see https://lottiefiles.com/ for examples and https://airbnb.design/lottie/
 # for general documentation.
 # Lottie files can be created using various tools, like Adobe After Effect or Synfig.
 #android.presplash_lottie = "path/to/lottie/file.json"
-android.skip_update = false
 
 # (str) Adaptive icon of the application (used if Android API level is 26+ at runtime)
 #icon.adaptive_foreground.filename = %(source.dir)s/data/icon_fg.png
 #icon.adaptive_background.filename = %(source.dir)s/data/icon_bg.png
 
 # (list) Permissions
-android.permissions = android.permissions = android.permission.INTERNET, (name=android.permission.WRITE_EXTERNAL_STORAGE;maxSdkVersion=18),CAMERA
+#android.permissions = INTERNET
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host
@@ -201,14 +200,14 @@ android.permissions = android.permissions = android.permission.INTERNET, (name=a
 # android.add_compile_options = "sourceCompatibility = 1.8", "targetCompatibility = 1.8"
 
 # (list) Gradle repositories to add {can be necessary for some android.gradle_dependencies}
-# please enclose in double quotes
+# please enclose in double quotes 
 # e.g. android.gradle_repositories = "maven { url 'https://kotlin.bintray.com/ktor' }"
 #android.add_gradle_repositories =
 
-# (list) packaging options to add
+# (list) packaging options to add 
 # see https://google.github.io/android-gradle-dsl/current/com.android.build.gradle.internal.dsl.PackagingOptions.html
 # can be necessary to solve conflicts in gradle_dependencies
-# please enclose in double quotes
+# please enclose in double quotes 
 # e.g. android.add_packaging_options = "exclude 'META-INF/common.kotlin_module'", "exclude 'META-INF/*.kotlin_module'"
 #android.add_packaging_options =
 
@@ -230,9 +229,9 @@ android.permissions = android.permissions = android.permission.INTERNET, (name=a
 
 # (list) Android additional libraries to copy into libs/armeabi
 #android.add_libs_armeabi = libs/android/*.so
-#android.add_libs_armeabi_v7a = %(source_dir)s/a.so
-#android.add_libs_arm64_v8a = %(source_dir)s/b.so
-#android.add_libs_x86 = %(source_dir)s/libopencv_java4.so
+#android.add_libs_armeabi_v7a = libs/android-v7/*.so
+#android.add_libs_arm64_v8a = libs/android-v8/*.so
+#android.add_libs_x86 = libs/android-x86/*.so
 #android.add_libs_mips = libs/android-mips/*.so
 
 # (bool) Indicate whether the screen should stay on
@@ -263,7 +262,7 @@ android.permissions = android.permissions = android.permission.INTERNET, (name=a
 
 # (list) The Android archs to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
 # In past, was `android.arch` as we weren't supporting builds for multiple archs at the same time.
-#android.archs = armeabi-v7a, arm64-v8a,x86
+android.archs = arm64-v8a
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
@@ -289,7 +288,7 @@ android.allow_backup = True
 
 # (str) The format used to package the app for debug mode (apk or aar).
 # android.debug_artifact = apk
-#android.add_libs_armeabi_v7a = %(source_dir)s/libopencv_java4.so
+
 #
 # Python for android (p4a) specific
 #
@@ -298,10 +297,10 @@ android.allow_backup = True
 #p4a.url =
 
 # (str) python-for-android fork to use in case if p4a.url is not specified, defaults to upstream (kivy)
-#p4a.fork = kivy
+p4a.fork = kivy
 
 # (str) python-for-android branch to use, defaults to master
-#p4a.branch = master
+p4a.branch = develop
 
 # (str) python-for-android specific commit to use, defaults to HEAD, must be within p4a.branch
 #p4a.commit = HEAD
