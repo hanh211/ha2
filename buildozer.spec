@@ -1,19 +1,19 @@
 [app]
 
 # (str) Title of your application
-title = Lottie Demo
+title = LoveCalc
 
 # (str) Package name
-package.name = lottiedemo
+package.name = LoveCalculator
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = dev.tshirtman
+package.domain = org.stack
 
 # (str) Source code where the main.py live
-source.dir = src/
+source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas
+source.include_exts = py,png,jpg,kv,atlas,so,wav
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -36,8 +36,8 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy
-
+# requirements = python3.8,kivy,requests,urllib3,chardet,idna,ffpyplayer
+requirements = python3,kivy,requests,urllib3,chardet,idna,ffpyplayer
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
 # requirements.source.kivy = ../../kivy
@@ -47,6 +47,7 @@ requirements = python3,kivy
 
 # (str) Icon of the application
 #icon.filename = %(source.dir)s/data/icon.png
+icon.filename = %(source.dir)s/images/appicon.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
@@ -74,39 +75,30 @@ osx.kivy_version = 1.9.1
 # (bool) Indicate if the application should be fullscreen or not
 fullscreen = 0
 
-# (string) Presplash background color (for android toolchain)
+# (string) Presplash background color (for new android toolchain)
 # Supported formats are: #RRGGBB #AARRGGBB or one of the following names:
 # red, blue, green, black, white, gray, cyan, magenta, yellow, lightgray,
 # darkgray, grey, lightgrey, darkgrey, aqua, fuchsia, lime, maroon, navy,
 # olive, purple, silver, teal.
 #android.presplash_color = #FFFFFF
 
-# (string) Presplash animation using Lottie format.
-# see https://lottiefiles.com/ for examples and https://airbnb.design/lottie/
-# for general documentation.
-# Lottie files can be created using various tools, like Adobe After Effect or Synfig.
-android.presplash_lottie = "42369-weather-wind.json"
-
 # (list) Permissions
-#android.permissions = INTERNET
-
-# (list) features (adds uses-feature -tags to manifest)
-#android.features = android.hardware.usb.host
+android.permissions = INTERNET
 
 # (int) Target Android API, should be as high as possible.
 android.api = 28
 
 # (int) Minimum API your APK will support.
-#android.minapi = 21
+android.minapi = 21
 
 # (int) Android SDK version to use
-#android.sdk = 20
+#android.sdk = 28
 
 # (str) Android NDK version to use
 #android.ndk = 19b
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
-#android.ndk_api = 21
+#android.ndk_api = 28
 
 # (bool) Use --private data storage (True) or --dir public storage (False)
 #android.private_storage = True
@@ -156,10 +148,12 @@ android.api = 28
 # directory containing the files)
 #android.add_src =
 
-# (list) Android AAR archives to add
+# (list) Android AAR archives to add (currently works only with sdl2_gradle
+# bootstrap)
 #android.add_aars =
 
-# (list) Gradle dependencies to add
+# (list) Gradle dependencies to add (currently works only with sdl2_gradle
+# bootstrap)
 #android.gradle_dependencies =
 
 # (list) add java compile options
@@ -177,7 +171,7 @@ android.api = 28
 # can be necessary to solve conflicts in gradle_dependencies
 # please enclose in double quotes 
 # e.g. android.add_packaging_options = "exclude 'META-INF/common.kotlin_module'", "exclude 'META-INF/*.kotlin_module'"
-#android.add_packaging_options =
+#android.add_gradle_repositories =
 
 # (list) Java classes to add as activities to the manifest.
 #android.add_activities = com.example.ExampleActivity
@@ -197,7 +191,7 @@ android.api = 28
 
 # (list) Android additional libraries to copy into libs/armeabi
 #android.add_libs_armeabi = libs/android/*.so
-#android.add_libs_armeabi_v7a = libs/android-v7/*.so
+android.add_libs_armeabi_v7a = libs/android-v7/*.so
 #android.add_libs_arm64_v8a = libs/android-v8/*.so
 #android.add_libs_x86 = libs/android-x86/*.so
 #android.add_libs_mips = libs/android-mips/*.so
@@ -223,17 +217,12 @@ android.api = 28
 #android.copy_libs = 1
 
 # (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
-android.arch = armeabi-v7a
+#android.arch = armeabi-v7a
+android.archs = armeabi-v7a
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
 # android.numeric_version = 1
-
-# (bool) enables Android auto backup feature (Android API >=23)
-android.allow_backup = True
-
-# (str) XML file for custom backup rules (see official auto backup documentation)
-# android.backup_rules =
 
 #
 # Python for android (p4a) specific
@@ -243,7 +232,8 @@ android.allow_backup = True
 #p4a.fork = kivy
 
 # (str) python-for-android branch to use, defaults to master
-p4a.branch = develop
+#p4a.branch = master
+p4a.branch = release-2022.12.20
 
 # (str) python-for-android git clone directory (if empty, it will be automatically cloned from github)
 #p4a.source_dir =
@@ -259,13 +249,6 @@ p4a.branch = develop
 
 # (int) port number to specify an explicit --port= p4a argument (eg for bootstrap flask)
 #p4a.port =
-
-# Control passing the --use-setup-py vs --ignore-setup-py to p4a
-# "in the future" --use-setup-py is going to be the default behaviour in p4a, right now it is not
-# Setting this to false will pass --ignore-setup-py, true will pass --use-setup-py
-# NOTE: this is general setuptools integration, having pyproject.toml is enough, no need to generate
-# setup.py if you're using Poetry, but you need to add "toml" to source.include_exts.
-#p4a.setup_py = false
 
 
 #
