@@ -1,22 +1,84 @@
-from ultralytics import YOLO
-import cv2
-import telepot
-model = YOLO("yolov8n.pt")
-results = model("rtsp://admin:admin1234@192.168.1.15:554/cam/realmonitor?channel=1&subtype=0",stream=True,show=True)
-def show_frame():
-    cv2.rectangle(frame,(0,0),(800,500),(255,0,0),10)
-    cv2.imshow("show",frame)
-    cv2.waitKey(1)
-for result,frame in results:
-    show_frame()
-    boxes=result[0].boxes
-    for box in boxes.numpy():
-        x=(box.xyxy[0][0]+box.xyxy[0][2])/2
-        y=int(box.xyxy[0][1])+int(box.xyxy[0][3])/2
-        b=(0,0)[0]<x<(800,500)[0] and (0,0)[1]<y<(800,500)[1]
-        if b:
-            token = "6275415240:AAF3yDdT45-VIn8GdBrQUHH0XmtMXo0MC28"
-            receiver_id=5877612764
-            a=cv2.imwrite("a.jpg",frame)
-            bot = telepot.Bot(token)
-            bot.sendPhoto(receiver_id,photo=open("a.jpg", "rb"),caption="Có xâm nhập, nguy hiêm!")
+#!/usr/bin/env python
+
+import kivy
+import lovecal
+
+from kivy.app import App
+from kivy.uix.screenmanager import ScreenManager
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.properties import StringProperty
+from kivy.graphics import Color, Rectangle
+from kivy.core.audio import SoundLoader
+from kivy.uix.textinput import TextInput
+from kivy.core.window import Window
+from kivy.uix.bubble import Bubble
+
+
+class ValidateInput(TextInput):
+    #invalid_set = r"/\*:|'.?" + '"<>'
+
+    invalid_set = r"[-.\'@_!#$%^&*()<>?/\|}{~:0123456789 ]"
+    count = 0
+
+    def insert_text(self, substring, from_undo=False):
+        firstname = [c for c in substring if c not in self.invalid_set]
+        s = ''.join(firstname)
+        if not self.filled:
+            return super().insert_text(s, from_undo=from_undo)
+
+
+#    def keyboard_on_key_up(self, keycode, text):
+#        if self.readonly and text[1] == "backspace":
+#            self.readonly = False
+#            self.do_backspace()
+
+class Manager(ScreenManager):
+
+    result = StringProperty(None)
+    percentage = StringProperty(None)
+
+    def __init__(self, **kwargs):
+        super(Manager, self).__init__(**kwargs)
+
+    def playstart(self):
+        sound = SoundLoader.load('sound/click.wav')
+        sound.play()
+
+    def playreturn(self):
+        sound = SoundLoader.load('sound/click.wav')
+        sound.play()
+
+
+    def results(self):
+        sound = SoundLoader.load('sound/click.wav')
+        print(self.ids.firstname.text)
+        print(self.ids.secondname.text)
+        first = self.ids.firstname.text
+        second = self.ids.secondname.text
+        results = lovecal.calculator(first, second)
+        #print(results)
+        if results == "Failed":
+            self.result = "Failed"
+            self.percentage = "Failed"
+        else:
+            self.result = results['result']
+            self.percentage = results['percentage']
+        #self.result = results[1]
+        #self.percentage = results[0]
+        print(self.result)
+        print(self.percentage)
+        #print(str(results['percentage']))
+        #print(str(results['result']))
+        sound.play()
+
+class ScreenApp(App):
+    def build(self):
+        self.icon = 'images/appicon.png'
+        self.sm = Manager()
+        return self.sm
+
+Window.softinput_mode = "below_target"
+
+if __name__ == '__main__':
+    ScreenApp().run()

@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: master
-
+               
       - name: Build with Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
         id: buildozer
@@ -42,7 +42,7 @@ jobs:
         with:
           path: data
           ref: data # Branch name
-
+          
       - name: Set up Python
         uses: actions/setup-python@v2
         with:

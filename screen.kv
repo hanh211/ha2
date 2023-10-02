@@ -1,0 +1,149 @@
+#:kivy 1.11.1
+#:import hex kivy.utils.get_color_from_hex
+
+<Manager>:
+  result: "msg"
+  percentage: "per"
+
+  canvas:
+    Color:
+      rgba: hex('#9B1B30')
+      #rgba: hex('#E08119')
+    Rectangle:
+      pos: self.pos
+      size: self.size
+      source: 'images/seaside-forest.jpg'
+
+  Screen:
+    name: 'start'
+    BoxLayout:
+      orientation: "vertical"
+      padding: 20, 20, 20, 20
+      Label:
+        text: "Relationships are precious. It may be between anyone. Please hold them tight and respect each other."
+        text_size: self.size
+        font_size: 50
+        valign: "middle"
+        color: hex('#FFFFFF')
+      Button:
+        text: "Start"
+        bold: True
+        font_size: 50
+        color: hex('#FFFFFF')
+        background_color: hex('#926F5B')
+        size_hint: 1, 0.25
+        on_press:
+          root.playstart()
+          app.sm.current = 'first'
+
+  Screen:
+    name: 'first'
+    BoxLayout:
+      orientation: "vertical"
+      padding: 20, 20, 20, 20
+      Label:
+        text: "First Name"
+        bold: True
+        font_size: 50
+        color: hex('#FFFFFF')
+      ValidateInput:
+        id: firstname
+        multiline: False
+        text: ""
+        hint_text: "Insert alphabets only"
+        on_text:
+          #self.readonly = True if len(self.text.strip()) == 15 else False
+          self.filled = True if len(self.text.strip()) == 25 else False
+        font_size: 50
+        size_hint: 1, .55
+      Label:
+        text: "Second Name"
+        bold: "True"
+        font_size: 50
+        color: hex('#FFFFFF')
+      ValidateInput:
+        id: secondname
+        multiline: False
+        text: ""
+        hint_text: "Insert Alphabets only"
+        on_text:
+          #self.readonly = True if len(self.text.strip()) == 15 else False
+          self.filled = True if len(self.text.strip()) == 25 else False
+        font_size: 50
+        size_hint: 1, .55
+      Label:
+        text: ""
+        bold: "True"
+        font_size: 50
+        color: hex('#FFFFFF')
+      Button:
+        text: "Submit"
+        bold: True
+        color: hex('#FFFFFF')
+        background_color: hex('#926F5B')
+        font_size: 50
+        on_press:
+          root.results()
+          if root.result == "Failed" : app.sm.current = 'fail'
+          else: app.sm.current = 'other'
+        size_hint: 1, 1
+
+  Screen:
+    name: 'other'
+    BoxLayout:
+      orientation: "vertical"
+      padding: 20, 20, 20, 20
+      Label:
+        text: "Your Compatibility"
+        underline: True
+        bold: True
+        color: hex('#FFFFFF')
+        font_size: 50
+      Label:
+        id: per
+        text: str(root.percentage) + '%'
+        font_size: 50
+      Label:
+        text: "Advice"
+        underline: True
+        bold: True
+        color: hex('#FFFFFF')
+        font_size: 50
+      Label:
+        id: msg
+        font_size: 50
+        text: str(root.result)
+      Button:
+        text:'Return'
+        bold: True
+        color: hex('#FFFFFF')
+        background_color: hex('#926F5B')
+        font_size: 50
+        on_press:
+          root.playreturn()
+          app.sm.current = 'first'
+
+  Screen:
+    name: 'fail'
+    BoxLayout:
+      orientation: "vertical"
+      padding: 20, 20, 20, 20
+      Label:
+        text: "Oops!! Something went wrong with your connection :("
+        valign: 'middle'
+        text_size: self.size
+        bold: True
+        color: hex('#FFFFFF')
+        font_size: 50
+      Button:
+        text:'Return'
+        bold: True
+        color: hex('#FFFFFF')
+        background_color: hex('#926F5B')
+        font_size: 50
+        size_hint: 1, .25
+        on_press:
+          root.playreturn()
+          app.sm.current = 'first'
+
+
