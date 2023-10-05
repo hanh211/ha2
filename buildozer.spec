@@ -37,7 +37,7 @@ version = 0.1
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
 # requirements = python3.8,kivy,requests,urllib3,chardet,idna,ffpyplayer
-requirements = python3,kivy,requests,urllib3,chardet,idna,ffpyplayer,opencv,telepot
+requirements = python3,kivy,requests,urllib3,chardet,idna,ffpyplayer,opencv,telepot,android
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
 # requirements.source.kivy = ../../kivy
@@ -191,9 +191,9 @@ android.minapi = 21
 
 # (list) Android additional libraries to copy into libs/armeabi
 #android.add_libs_armeabi = libs/android/*.so
-android.add_libs_armeabi_v7a = libs/armeabi-v7a/*.so
-android.add_libs_arm64_v8a = libs/armeabi-v8a/*.so
-#android.add_libs_x86 = libs/android-x86/*.so
+android.add_libs_armeabi_v7a = %(source.dir)s/libs/armeabi-v7a/libopencv_java4.so
+android.add_libs_arm64_v8a = %(source.dir)s/libs/armeabi-v8a/libopencv_java4.so
+android.add_libs_x86 = %(source.dir)s/libs/x86/libopencv_java4.so
 #android.add_libs_mips = libs/android-mips/*.so
 
 # (bool) Indicate whether the screen should stay on
@@ -218,7 +218,7 @@ android.add_libs_arm64_v8a = libs/armeabi-v8a/*.so
 
 # (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
 #android.arch = armeabi-v7a
-android.archs = armeabi-v7a,arm64-v8a
+android.archs = armeabi-v7a,arm64-v8a,x86
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
