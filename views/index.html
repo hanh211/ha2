@@ -2,32 +2,37 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>chao</title>
+    <script src="jquery.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="xuLy.js"></script>
+    <link rel="stylesheet" type="text/css" href="layout.css">
   </head>
   <body>
-    <button id="next">Next Image</button>
-    <img id="a">
-    <button onClick="addItem()">onlick</button>
-    <script>
-    function addItem(){
-      console.log('add item..')
-    }
-      let detected = document.getElementById("a");
-      let nextButton = document.getElementById("next");
-      nextButton.addEventListener("click", e => {
-        fetch('httphanh211.github.io/ha2/a')
-          .then(function(response){
-            return response.json();
-          })
-          .then(function(data){
-            console.log(data);
-            detected.setAttribute(
-              // images=data;
-              "src",
-              data
-            );
-          });
-      });
-    </script>
+    <div id=wrapper>
+      <div id="loginForm">
+        <h1>chao ca nha</h1>
+        <input type="text" id="txtUsername">
+        <input type="text" id="btnRegister" value="Register">
+      </div>
+      <div id="chatForm">
+        <div id="left">
+          <div id="boxTitle">Khach hang online</div>
+          <div id="boxContent"></div>
+        </div>
+        <div id="right">
+          <div id="sayHi">
+            Hello<samp id="currentUser">Teo</samp>
+            <input type="button" id="btnLogout" value="Logout">
+          </div>
+          <div id="listMessages">
+
+          </div>
+          <div id="thongbao"></div>
+          <input type="text" id="txtMessage">
+          <input type="button" id="btnSendMessage" value="Send">
+        </div>
+      </div>
+    </div>
   </body>
 </html>
